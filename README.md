@@ -18,4 +18,5 @@ Vision Statement: For college football enthusiasts, who want to draft a fantasy 
 
 Communication Plan: Our group will communicate through a text groupchat, which has already been created.
 
-
+Meeting Plan: We will meet on Thursdays from 5:00pm to 6:40pm over zoom, and will meet with our TA over zoom from 4:30pm to 4:45pm.
+Zoom Link: https://cuboulder.zoom.us/j/6808546254
