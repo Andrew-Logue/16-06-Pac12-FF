@@ -11,7 +11,9 @@ Nathan Young		nathan4922		nayo4922@colorado.edu
 
 Application Name: Pac-12 Fantasy Football
 
-Application Description: Our applicaiton will take in data from the ESPN API, and display player names, statistics, and team name. The user will be able to create their own team via a draft function. The user will also be able to bet on their team through our app, using real world betting splits. 
+Application Description: Our applicaiton will take in data from the ESPN API, and display player names, statistics, and team name. The user will be able to create their own team via a draft function. The user will also be able to bet on their team through our app, using real world betting splits.
+
+Our application will be a fantasy football application for the Pac-12 Conference. Users will be able to draft teams and monitor the progress of their team throughout the season. Data will be pulled from a college football api. We envision a league feature which allows you to compete against your friends. We are also considering betting features using a make believe virtual currency. 
 
 Vision Statement: For college football enthusiasts, who want to draft a fantasy football team in the Pac-12 conference, with a sports betting function. The Pac-12 Fantasy Football applicaiton is a fantasy sports app that allows you to restict your draft to the Pac-12 conference, and place bets on your team's performance each week. Unlike ESPN Fantasy Football, our product is soley for Pac-12 enthusiasts. 
 
