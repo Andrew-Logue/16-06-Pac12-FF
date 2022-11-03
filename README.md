@@ -23,5 +23,7 @@ Development Methodology: Agile Methodology
 
 Communication Plan: Our group will communicate through a text groupchat, which has already been created.
 
+Use Case Diagram: https://lucid.app/lucidspark/146e9e63-5fc0-42ca-b795-714530c4f639/edit?viewport_loc=-1603%2C-669%2C4610%2C2207%2C0_0&invitationId=inv_9715af56-d3a3-40b7-b726-6f6c6b0a7c01
+
 Meeting Plan: We will meet on Thursdays from 5:00pm to 6:40pm over zoom, and will meet with our TA over zoom from 4:30pm to 4:45pm.
 Zoom Link: https://cuboulder.zoom.us/j/6808546254
