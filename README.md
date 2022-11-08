@@ -27,3 +27,5 @@ Use Case Diagram: https://lucid.app/lucidspark/146e9e63-5fc0-42ca-b795-714530c4f
 
 Meeting Plan: We will meet on Thursdays from 5:00pm to 6:40pm over zoom, and will meet with our TA over zoom from 4:30pm to 4:45pm.
 Zoom Link: https://cuboulder.zoom.us/j/6808546254
+
+Testing Plan Link: https://docs.google.com/document/d/1ONu6ZnDA8PL3RmT7cX48uweXglCh6LUo7wmbmJKSEeI/edit?usp=sharing
