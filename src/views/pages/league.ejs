@@ -1,0 +1,36 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+    <div class="container">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="col">Team Place</th>
+              <th scope="col">Team Name</th>
+              <th scope="col">Points</th>
+              <th scope="col"></th>
+            </tr>
+            <% courses.forEach(course => { %>
+            <tr>
+              <td><%=teams.position%></td>
+              <td><%=teams.name%></td>
+              <td><%=teams.points%></td>
+              <td>
+                <% } if (course.taken == "true") { %>
+                  <form action = '/courses/add/' method = 'POST'>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                  </form>
+                <% } else { %>
+                  <form action = '/courses/add/' method = 'POST'>
+                    <button type="submit" class="btn btn-primary" disabled>View</button>
+                  </form>
+                <% };%>
+              </td>
+            </tr>             
+            <%});%>
+          </tbody>
+        </table>
+      </div>
+</main>
+
+<%- include ('../partials/footer') %>
