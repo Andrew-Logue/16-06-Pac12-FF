@@ -10,19 +10,19 @@
               <th scope="col">Points</th>
               <th scope="col"></th>
             </tr>
-            <% courses.forEach(course => { %>
+            <% teams.forEach(team => { %>
             <tr>
               <td><%=teams.position%></td>
               <td><%=teams.name%></td>
               <td><%=teams.points%></td>
               <td>
-                <% } if (course.taken == "true") { %>
-                  <form action = '/courses/add/' method = 'POST'>
+                <% } if (team.mine == "true") { %>
+                  <form action = '/teams/edit/' method = 'POST'>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
                 <% } else { %>
-                  <form action = '/courses/add/' method = 'POST'>
-                    <button type="submit" class="btn btn-primary" disabled>View</button>
+                  <form action = '/teams/view/' method = 'POST'>
+                    <button type="submit" class="btn btn-primary">View</button>
                   </form>
                 <% };%>
               </td>
