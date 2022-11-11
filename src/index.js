@@ -41,7 +41,12 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.redirect("/login"); //this will call the /anotherRoute route in the API
+  res.render("pages/home");
+  //res.redirect("/login"); //this will call the /anotherRoute route in the API
+});
+
+app.get( "/leagues",(req, res)=>{
+  res.render("pages/league");
 });
 
 app.get("/pages", (req, res) => {
