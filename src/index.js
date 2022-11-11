@@ -97,6 +97,19 @@ app.post("/login", async (req, res) => {
     });
 });
 
+app.get("/leagues", (req, res) => {
+  const query = "SELECT * FROM teams ORDER BY team_score ASC;";
+  db.any(query)
+    .then(result => {
+      console.log(result);
+      res.render("pages/leagues", {teams:results});
+    })
+    .catch(err => {
+      console.log(err);
+      res.render("pages/leagues", {teams:""});
+    })
+});
+
 // Authentication Middleware.
 // const auth = (req, res, next) => {
 //   if (!req.session.user) {
