@@ -12,11 +12,11 @@
             </tr>
             <% teams.forEach(team => { %>
             <tr>
-              <td><%=teams.position%></td>
-              <td><%=teams.name%></td>
-              <td><%=teams.points%></td>
+              <td><%=team.team_name%></td>
+              <td><%=team.weekly_points%></td>
+              <td><%=team.team_score%></td>
               <td>
-                <% } if (team.mine == "true") { %>
+                <% } if (team.team_id == "1") { %>
                   <form action = '/teams/edit/' method = 'POST'>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
