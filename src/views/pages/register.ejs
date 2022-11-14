@@ -3,32 +3,18 @@
 <main>
   <div class="container">
     <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-    <h1 style="text-align: center">Register</h1>
-    <form method="post" action="/register">
-      <div class="row pt-4">
-        <div class="col-sm-2">Username</div>
-        <input name="username" class="col" />
-      </div>
-      <div class="row pt-4">
-        <div class="col-sm-2">Password</div>
-        <input name="password" class="col" />
-      </div>
-      <div class="row pt-4">
-        <div class="col-sm-2">Re-enter Password</div>
-        <!-- Check if this field matches with first -->
-        <input name="password" class="col" />
-      </div>
-      <hr />
-      <div>
-        Already have an account?
-        <a style="text-decoration: underline" href="http://localhost:3000/login"
-          >Login</a
-        >
-        <span style="float: right"
-          ><button type="submit" class="btn btn-primary">Register</button></span
-        >
-      </div>
-    </form>
+    <div class="col"><%- include ('../partials/message') %></div>
+    <div class="container-fluid">
+        <h1> Register</h1>
+        <form action="/register" method ="POST">
+            <label for ="username">Username</label>
+            <input type="text" id="username" name="username"><br>
+            <label for ="password">Password</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    <a>Already have an account? <a href="/login">Login</a></a>
   </div>
 </main>
 
