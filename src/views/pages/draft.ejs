@@ -1,0 +1,47 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+    <div class="container">
+
+        <h1>Drafting</h1>
+
+        <table class="table">
+            <tbody>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Position</th>
+              </tr>
+              <% team.forEach(player => { %>
+              <tr>
+                <td><%=team.player%></td>
+                <td><%=player.position%></td>
+                <td>
+                    <form action = '/team/add/' method = 'POST'>
+                        <button type="submit" class="btn btn-primary">Add to Team</button>
+                    </form>
+                </td>
+              </tr>             
+              <%});%>
+            </tbody>
+          </table>
+
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Position</th>
+                
+              </tr>
+              <% team.forEach(player => { %>
+              <tr>
+                  <td><%=team.player%></td>
+                  <td><%=player.position%></td>
+              </tr>             
+              <%});%>
+            </tbody>
+          </table>
+          
+      </div>
+</main>
+
+<%- include ('../partials/footer') %>
