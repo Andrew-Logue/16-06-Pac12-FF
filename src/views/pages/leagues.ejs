@@ -7,16 +7,20 @@
             <tr>
               <th scope="col">Team Place</th>
               <th scope="col">Team Name</th>
-              <th scope="col">Points</th>
+              <th scope="col">Points Scored this Week</th>
+              <th scope="col">Team Score</th>
               <th scope="col"></th>
             </tr>
+            <%i=0;%>
             <% teams.forEach(team => { %>
             <tr>
+              <%i=i+1;%>
+              <td><%=i%></td>
               <td><%=team.team_name%></td>
               <td><%=team.weekly_points%></td>
               <td><%=team.team_score%></td>
               <td>
-                <% } if (team.team_id == "1") { %>
+                <% if (team.team_id == "1") { %>
                   <form action = '/teams/edit/' method = 'POST'>
                     <button type="submit" class="btn btn-primary">Edit</button>
                   </form>
