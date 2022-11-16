@@ -41,7 +41,8 @@ app.post("/updatePlayersTable",(req,res)=>{
           'accept': 'application/json',
           'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
       }
-    }).then(results=>{
+    }).then(async (results)=>{
+        await db.any("delete from players;");
         results.data.forEach(async (player)=>{
             const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
             await db.any(insert,[player.name,player.team,player.jersey,player.position]);
@@ -49,9 +50,6 @@ app.post("/updatePlayersTable",(req,res)=>{
     })
   });
 });
-
-
-
 
 
 app.set('view engine', 'ejs');
