@@ -75,9 +75,6 @@ app.get("/", (req, res) => {
   //res.redirect("/login"); //this will call the /anotherRoute route in the API
 });
 
-app.get( "/leagues",(req, res)=>{
-  res.render("pages/leagues");
-});
 
 app.get("/welcome",(req,res)=>{
   res.render("pages/welcome",{username: req.session.user.username});
@@ -141,8 +138,12 @@ app.get("/leagues", (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.render("pages/leagues", {teams:""});
+      res.render("pages/leagues", {teams:[]});
     })
+});
+
+app.get("/draft", (req, res) => {
+  res.render("pages/draft");
 });
 
 // Authentication Middleware.
