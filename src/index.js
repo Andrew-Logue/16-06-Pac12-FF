@@ -78,7 +78,7 @@ app.get("/", (req, res) => {
 });
 
 app.get( "/leagues",(req, res)=>{
-  res.render("pages/league");
+  res.render("pages/leagues");
 });
 
 app.get("/welcome",(req,res)=>{
