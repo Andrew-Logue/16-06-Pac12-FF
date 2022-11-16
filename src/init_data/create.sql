@@ -16,3 +16,10 @@ CREATE TABLE users_teams(
     username VARCHAR(50) NOT NULL REFERENCES users (username),
     team_id INTEGER NOT NULL REFERENCES teams (team_id)
 );
+
+create table players(
+    name varchar(50) primary key,
+    team varchar(50) not null,
+    number smallint,
+    position varchar(10)
+    );

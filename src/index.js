@@ -8,42 +8,69 @@ const axios = require('axios');
 
 // database configuration
 const dbConfig = {
-    host: 'db',
-    port: 5432,
-    database: process.env.POSTGRES_DB,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-  };
-  
-  const db = pgp(dbConfig);
-  
-  // test your database
-  db.connect()
-    .then(obj => {
-      console.log('Database connection successful'); // you can view this message in the docker compose logs
-      obj.done(); // success, release the connection;
-    })
-    .catch(error => {
-      console.log('ERROR:', error.message || error);
-    });
+  host: 'db',
+  port: 5432,
+  database: process.env.POSTGRES_DB,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+};
 
-    app.set('view engine', 'ejs');
-    app.use(bodyParser.json());
-    app.use(
-        session({
-          secret: process.env.SESSION_SECRET,
-          saveUninitialized: false,
-          resave: false,
+const db = pgp(dbConfig);
+
+// test your database
+db.connect()
+.then(obj => {
+  console.log('Database connection successful'); // you can view this message in the docker compose logs
+  obj.done(); // success, release the connection;
+})
+.catch(error => {
+  console.log('ERROR:', error.message || error);
+});
+
+// players db init
+app.post("/updatePlayersTable",(req,res)=>{
+  const Pac12Teams = ["Arizona","Arizona State", "California","Colorado","Oregon","Oregon State","Stanford","UCLA","USC","Utah","Washington","Washington State"];
+  Pac12Teams.forEach( async (team)=>{
+    await axios.get('https://api.collegefootballdata.com/player/search', {
+      params: {
+          'searchTerm': ' ',
+          'team': team,
+          'year': '2022'
+      },
+      headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
+      }
+    }).then(results=>{
+        results.data.forEach(async (player)=>{
+            const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
+            await db.any(insert,[player.name,player.team,player.jersey,player.position]);
         })
-      );
-      
-      app.use(
-        bodyParser.urlencoded({
-          extended: true,
-        })
-      );
-      app.listen(3000);
-    console.log('Server is listening on port 3000');
+    })
+  });
+});
+
+
+
+
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      saveUninitialized: false,
+      resave: false,
+    })
+  );
+  
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
+  app.listen(3000);
+console.log('Server is listening on port 3000');
 
 app.get("/", (req, res) => {
   res.render("pages/home");
@@ -52,6 +79,10 @@ app.get("/", (req, res) => {
 
 app.get( "/leagues",(req, res)=>{
   res.render("pages/league");
+});
+
+app.get("/welcome",(req,res)=>{
+  res.render("pages/welcome",{username: req.session.user.username});
 });
 
 app.post("/register", async (req, res) => {
@@ -85,10 +116,10 @@ app.post("/login", async (req, res) => {
       const match = await bcrypt.compare(req.body.password, user.password); //await is explained in #8
       if (match) {
         req.session.user = {
-          api_key: process.env.API_KEY,
+          username: req.body.username,
         };
         req.session.save();
-        res.redirect("/");
+        res.redirect("/welcome");
       } else {
         //they dont match
         res.redirect("pages/login", {
