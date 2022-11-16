@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS users;
 CREATE TABLE users(
     username VARCHAR(50) PRIMARY KEY,
     password CHAR(60) NOT NULL
@@ -17,12 +16,3 @@ CREATE TABLE users_teams(
     username VARCHAR(50) NOT NULL REFERENCES users (username),
     team_id INTEGER NOT NULL REFERENCES teams (team_id)
 );
-
-DROP TABLE IF EXISTS players;
-create table players(
-    player_id serial primary key,
-    name varchar(50) not null,
-    team varchar(50) not null,
-    number smallint,
-    position varchar(10)
-    );
