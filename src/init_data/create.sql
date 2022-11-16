@@ -17,7 +17,6 @@ CREATE TABLE users_teams(
     team_id INTEGER NOT NULL REFERENCES teams (team_id)
 );
 
-drop table if exists players;
 create table players(
     name varchar(50) primary key,
     team varchar(50) not null,

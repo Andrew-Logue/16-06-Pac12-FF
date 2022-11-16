@@ -28,28 +28,27 @@ db.connect()
 });
 
 // players db init
-const Pac12Teams = ["Arizona","Arizona State", "California","Colorado","Oregon","Oregon State","Stanford","UCLA","USC","Utah","Washington","Washington State"];
-Pac12Teams.forEach( async (team)=>{
-  await axios.get('https://api.collegefootballdata.com/player/search', {
-    params: {
-        'searchTerm': ' ',
-        'team': team,
-        'year': '2022'
-    },
-    headers: {
-        'accept': 'application/json',
-        'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
-    }
-  }).then(results=>{
-      console.log(results.data);
-      // for(const player of results){
-      //   console.log(player);
-      // const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
-      // db.any(query,[player.name,player.team,player.jersey,player.position])
-      // }
-  })
+app.post("/updatePlayersTable",(req,res)=>{
+  const Pac12Teams = ["Arizona","Arizona State", "California","Colorado","Oregon","Oregon State","Stanford","UCLA","USC","Utah","Washington","Washington State"];
+  Pac12Teams.forEach( async (team)=>{
+    await axios.get('https://api.collegefootballdata.com/player/search', {
+      params: {
+          'searchTerm': ' ',
+          'team': team,
+          'year': '2022'
+      },
+      headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
+      }
+    }).then(results=>{
+        results.data.forEach(async (player)=>{
+            const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
+            await db.any(insert,[player.name,player.team,player.jersey,player.position]);
+        })
+    })
+  });
 });
-
 
 
 
@@ -80,6 +79,10 @@ app.get("/", (req, res) => {
 
 app.get( "/leagues",(req, res)=>{
   res.render("pages/league");
+});
+
+app.get("/welcome",(req,res)=>{
+  res.render("pages/welcome",{username: req.session.user.username});
 });
 
 app.post("/register", async (req, res) => {
@@ -113,10 +116,10 @@ app.post("/login", async (req, res) => {
       const match = await bcrypt.compare(req.body.password, user.password); //await is explained in #8
       if (match) {
         req.session.user = {
-          api_key: process.env.API_KEY,
+          username: req.body.username,
         };
         req.session.save();
-        res.redirect("/");
+        res.redirect("/welcome");
       } else {
         //they dont match
         res.redirect("pages/login", {
