@@ -16,3 +16,14 @@ CREATE TABLE users_teams(
     username VARCHAR(50) NOT NULL REFERENCES users (username),
     team_id INTEGER NOT NULL REFERENCES teams (team_id)
 );
+
+DROP TABLE IF EXISTS players;
+CREATE TABLE players(
+    playerID serial primary key,
+    name varchar(50) not null,
+    team varchar(50) not null,
+    jersey smallint,
+    position varchar(50)
+);
+
+
