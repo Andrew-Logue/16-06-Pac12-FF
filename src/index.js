@@ -47,7 +47,8 @@ app.post("/updatePlayersTable",(req,res)=>{
             const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
             await db.any(insert,[player.name,player.team,player.jersey,player.position]);
         })
-    })
+    }
+    )
   });
 });
 
@@ -75,6 +76,9 @@ app.get("/", (req, res) => {
   //res.redirect("/login"); //this will call the /anotherRoute route in the API
 });
 
+app.get("/draft",(req,res)=>{
+  res.render("pages/draft");
+})
 
 app.get("/welcome",(req,res)=>{
   res.render("pages/welcome",{username: req.session.user.username});
