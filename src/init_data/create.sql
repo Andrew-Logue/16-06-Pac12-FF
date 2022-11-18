@@ -20,7 +20,7 @@ CREATE TABLE users_teams(
 DROP TABLE IF EXISTS players;
 CREATE TABLE players(
     playerID serial primary key,
-    name varchar(50) not null,
+    player_name varchar(50) not null,
     team varchar(50) not null,
     jersey smallint,
     position varchar(50)
