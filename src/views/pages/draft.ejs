@@ -8,12 +8,13 @@
         <table class="table">
             <tbody>
               <tr>
-                <th scope="col">Player</th>
+                <th scope="col">Player Name</th>
                 <th scope="col">Position</th>
+                <th scope="col"></th>
               </tr>
-              <% team.forEach(player => { %>
+              <% players.forEach(player => { %>
               <tr>
-                <td><%=team.player%></td>
+                <td><%=players.player_name%></td>
                 <td><%=player.position%></td>
                 <td>
                     <form action = '/team/add/' method = 'POST'>
@@ -23,24 +24,7 @@
               </tr>             
               <%});%>
             </tbody>
-          </table>
-
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Position</th>
-                
-              </tr>
-              <% team.forEach(player => { %>
-              <tr>
-                  <td><%=team.player%></td>
-                  <td><%=player.position%></td>
-              </tr>             
-              <%});%>
-            </tbody>
-          </table>
-          
+          </table>       
       </div>
 </main>
 

@@ -77,7 +77,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/draft",(req,res)=>{
-  res.render("pages/draft");
+  const query = "SELECT * FROM players ORDER BY position DESC;";
+  db.any(query)
+    .then(result => {
+      console.log(result);
+      res.render("pages/draft", {players:result});
+    })
+    .catch(err => {
+      console.log(err);
+      res.render("pages/draft", {players:[]});
+    })
 })
 
 app.get("/welcome",(req,res)=>{
@@ -144,10 +153,6 @@ app.get("/leagues", (req, res) => {
       console.log(err);
       res.render("pages/leagues", {teams:[]});
     })
-});
-
-app.get("/draft", (req, res) => {
-  res.render("pages/draft");
 });
 
 // Authentication Middleware.
