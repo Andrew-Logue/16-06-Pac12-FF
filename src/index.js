@@ -109,7 +109,7 @@ app.get("/draft", (req, res) => {
 });
 
 app.get("/welcome", (req, res) => {
-  res.render("pages/welcome", { name: req.session.users.username });
+  res.render("pages/welcome", { username: req.session.users.username });
 });
 
 app.post("/register", async (req, res) => {
