@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const pgp = require('pg-promise')();
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const bcrypt = require('bcrypt');
-const axios = require('axios');
+const pgp = require("pg-promise")();
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
+const axios = require("axios");
 
 // database configuration
 const dbConfig = {
-  host: 'db',
+  host: "db",
   port: 5432,
   database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,
@@ -19,78 +19,97 @@ const db = pgp(dbConfig);
 
 // test your database
 db.connect()
-.then(obj => {
-  console.log('Database connection successful'); // you can view this message in the docker compose logs
-  obj.done(); // success, release the connection;
-})
-.catch(error => {
-  console.log('ERROR:', error.message || error);
-});
+  .then((obj) => {
+    console.log("Database connection successful"); // you can view this message in the docker compose logs
+    obj.done(); // success, release the connection;
+  })
+  .catch((error) => {
+    console.log("ERROR:", error.message || error);
+  });
 
 // players db init
-app.post("/updatePlayersTable",(req,res)=>{
-  const Pac12Teams = ["Arizona","Arizona State", "California","Colorado","Oregon","Oregon State","Stanford","UCLA","USC","Utah","Washington","Washington State"];
-  Pac12Teams.forEach( async (team)=>{
-    await axios.get('https://api.collegefootballdata.com/player/search', {
-      params: {
-          'searchTerm': ' ',
-          'team': team,
-          'year': '2022'
-      },
-      headers: {
-          'accept': 'application/json',
-          'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
-      }
-    }).then(async (results)=>{
+app.post("/updatePlayersTable", (req, res) => {
+  const Pac12Teams = [
+    "Arizona",
+    "Arizona State",
+    "California",
+    "Colorado",
+    "Oregon",
+    "Oregon State",
+    "Stanford",
+    "UCLA",
+    "USC",
+    "Utah",
+    "Washington",
+    "Washington State",
+  ];
+  Pac12Teams.forEach(async (team) => {
+    await axios
+      .get("https://api.collegefootballdata.com/player/search", {
+        params: {
+          searchTerm: " ",
+          team: team,
+          year: "2022",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/",
+        },
+      })
+      .then(async (results) => {
         await db.any("delete from players;");
-        results.data.forEach(async (player)=>{
-            const insert= `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
-            await db.any(insert,[player.name,player.team,player.jersey,player.position]);
-        })
-    }
-    )
+        results.data.forEach(async (player) => {
+          const insert = `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
+          await db.any(insert, [
+            player.name,
+            player.team,
+            player.jersey,
+            player.position,
+          ]);
+        });
+      });
   });
 });
 
-
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      saveUninitialized: false,
-      resave: false,
-    })
-  );
-  
-  app.use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
-  app.listen(3000);
-console.log('Server is listening on port 3000');
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+  })
+);
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.listen(3000);
+console.log("Server is listening on port 3000");
 
 app.get("/", (req, res) => {
   res.render("pages/home");
   //res.redirect("/login"); //this will call the /anotherRoute route in the API
 });
 
-app.get("/draft",(req,res)=>{
+app.get("/draft", (req, res) => {
   const query = "SELECT * FROM players ORDER BY position DESC;";
   db.any(query)
-    .then(result => {
+    .then((result) => {
       console.log(result);
-      res.render("pages/draft", {players:result});
+      res.render("pages/draft", { players: result });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
-      res.render("pages/draft", {players:[]});
-    })
-})
+      res.render("pages/draft", { players: [] });
+    });
+});
 
-app.get("/welcome",(req,res)=>{
-  res.render("pages/welcome",{username: req.session.user.username});
+app.get("/welcome", (req, res) => {
+  res.render("pages/welcome", { name: req.session.users.username });
 });
 
 app.post("/register", async (req, res) => {
@@ -103,7 +122,7 @@ app.post("/register", async (req, res) => {
       res.redirect("/login");
     })
     .catch(function (err) {
-      res.render("pages/register",{message: "Username taken"});
+      res.render("pages/register", { message: "Username taken" });
       return console.log(err);
     });
 });
@@ -145,14 +164,14 @@ app.post("/login", async (req, res) => {
 app.get("/leagues", (req, res) => {
   const query = "SELECT * FROM teams ORDER BY team_score DESC;";
   db.any(query)
-    .then(result => {
+    .then((result) => {
       console.log(result);
-      res.render("pages/leagues", {teams:result});
+      res.render("pages/leagues", { teams: result });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
-      res.render("pages/leagues", {teams:[]});
-    })
+      res.render("pages/leagues", { teams: [] });
+    });
 });
 
 // Authentication Middleware.
@@ -188,4 +207,3 @@ app.get("/logout", (req, res) => {
   req.session.destroy();
   res.render("pages/login", { message: "Logged out successfully" });
 });
-
