@@ -174,6 +174,26 @@ app.get("/leagues", (req, res) => {
     });
 });
 
+app.get("/my_profile", (req, res) => {
+  const query = "SELECT * FROM users;";
+  const query2 = "SELECT * FROM teams";
+
+  db.task("get-everything", (task) => {
+    return task.batch([task.any(query), task.any(query2)]);
+  })
+    .then((result) => {
+      console.log(result);
+      res.render("pages/my_profile", { users: result[0], teams: result[1] });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/my_profile", { users: "", teams: "" });
+    });
+});
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/login", { message: "Logged out successfully" });
+});
 // Authentication Middleware.
 // const auth = (req, res, next) => {
 //   if (!req.session.user) {
@@ -203,19 +223,3 @@ app.get("/leagues", (req, res) => {
 //       return console.log(err);
 //     });
 // });
-app.get("/my_profile", (req, res) => {
-  const query = "SELECT username FROM users;";
-  db.any(query)
-    .then((result) => {
-      console.log(result);
-      res.render("pages/my_profile", { result });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.render("pages/my_profile", { result: "" });
-    });
-});
-app.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.render("pages/login", { message: "Logged out successfully" });
-});

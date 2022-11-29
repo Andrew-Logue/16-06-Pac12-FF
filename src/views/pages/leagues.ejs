@@ -4,25 +4,44 @@
   <div class="container">
     <table class="table">
       <tbody>
-        <tr>
-          <h1 class="pt-3" style="text-align: center">My Leagues</h1>
-        </tr>
+        <div>
+          <tr>
+            <h1 class="pt-3" style="text-align: center">My Leagues</h1>
+            <div
+              class="btn btn-primary"
+              style="text-align: center"
+              type="submit"
+            >
+              Join a League
+            </div>
+            <div
+              class="btn btn-primary"
+              style="text-align: center"
+              type="submit"
+            >
+              Create a league
+            </div>
+          </tr>
+        </div>
+        <div style="padding-top: 50px">
+          <%i=0;%> <% user_teams.forEach(user_team => { %>
 
-        <%i=0;%> <% user_teams.forEach(user_team => { %>
-        <tr>
-          <%i=i+1;%>
-          <td><%=i;%></td>
-          <td><%user_team.team_id%></td>
-          <% if (user_team.team_id == "1") { %>
-          <form action="/teams/edit/" method="POST">
-            <button type="submit" class="btn btn-primary">Edit</button>
-          </form>
-          <% } else { %>
-          <form action="/teams/view/" method="POST">
-            <button type="submit" class="btn btn-primary">View</button>
-          </form>
-          <% };%>
-        </tr>
+          <tr>
+            <%i=i+1;%>
+            <td><%=i;%></td>
+            <td><%user_team.team_id%></td>
+            <% if (user_team.team_id == "1") { %>
+            <form action="/teams/edit/" method="POST">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </form>
+            <% } else { %>
+            <form action="/teams/view/" method="POST">
+              <button type="submit" class="btn btn-primary">View</button>
+            </form>
+            <% };%>
+          </tr>
+        </div>
+
         <% }) %>
       </tbody>
     </table>

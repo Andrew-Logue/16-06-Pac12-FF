@@ -1,12 +1,9 @@
 <%- include ('../partials/header') %> <%- include ('../partials/loggedInMenu')%>
 <main>
   <div class="container">
-    <table class="table">
-      <tr>
-        <th scope="col">Hello <%=result[0].username%></th>
-        <th scope="col">Your League</th>
-      </tr>
-    </table>
+    <h1 class="pt-3" style="text-align: center">
+      Hello <%=users[0].username%>
+    </h1>
   </div>
 </main>
 <%- include ('../partials/footer') %>
