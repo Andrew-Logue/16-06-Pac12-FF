@@ -5,5 +5,17 @@
       Hello <%=users[0].username%>
     </h1>
   </div>
+  <tr>
+    <h2 style="padding-left: 50px; color: gray">Team Info</h2>
+    <h3 style="padding-left: 50px; font-size: 20px">
+      <%= teams[0].team_name%>
+    </h3>
+    <div style="padding-left: 50px">
+      Weekly Points: <%= teams[0].weekly_points%>
+    </div>
+    <div style="padding-left: 50px">
+      Weekly Points: <%= teams[0].team_score%>
+    </div>
+  </tr>
 </main>
 <%- include ('../partials/footer') %>

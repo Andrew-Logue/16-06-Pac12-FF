@@ -177,7 +177,6 @@ app.get("/leagues", (req, res) => {
 app.get("/my_profile", (req, res) => {
   const query = "SELECT * FROM users;";
   const query2 = "SELECT * FROM teams";
-
   db.task("get-everything", (task) => {
     return task.batch([task.any(query), task.any(query2)]);
   })
