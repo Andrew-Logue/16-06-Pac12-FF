@@ -166,11 +166,11 @@ app.get("/leagues", (req, res) => {
   db.any(query)
     .then((result) => {
       console.log(result);
-      res.render("pages/leagues", { teams: result });
+      res.render("pages/leagues", { user_teams: result });
     })
     .catch((err) => {
       console.log(err);
-      res.render("pages/leagues", { teams: [] });
+      res.render("pages/leagues", { user_teams: [] });
     });
 });
 
@@ -203,6 +203,18 @@ app.get("/leagues", (req, res) => {
 //       return console.log(err);
 //     });
 // });
+app.get("/my_profile", (req, res) => {
+  const query = "SELECT username FROM users;";
+  db.any(query)
+    .then((result) => {
+      console.log(result);
+      res.render("pages/my_profile", { result });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/my_profile", { result: "" });
+    });
+});
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.render("pages/login", { message: "Logged out successfully" });

@@ -8,7 +8,7 @@
           <h1 class="pt-3" style="text-align: center">My Leagues</h1>
         </tr>
 
- <%i=0;%> <% user_teams.forEach(user_team => { %>
+        <%i=0;%> <% user_teams.forEach(user_team => { %>
         <tr>
           <%i=i+1;%>
           <td><%=i;%></td>
@@ -23,33 +23,7 @@
           </form>
           <% };%>
         </tr>
-        <% }) %> -->
-        <!-- <%i=0;%> <% teams.forEach(team => { %>
-        <tr>
-          <%i=i+1;%>
-          <td><%=i%></td>
-          <td><%=team.team_name%></td>
-          <td><%=team.weekly_points%></td>
-          <td><%=team.team_score%></td>
-          <td>
-            <% if (team.team_id == "1") { %>
-            <form action="/teams/edit/" method="POST">
-              <button type="submit" class="btn btn-primary">Edit</button>
-            </form>
-            <% } else { %>
-            <form action="/teams/view/" method="POST">
-              <button type="submit" class="btn btn-primary">View</button>
-            </form>
-            <% };%>
-          </td>
-        </tr>
-        <%});%>
-      </tbody>
-    </table>
-  </div>
-</main>
-
-<%- include ('../partials/footer') %> 
+        <% }) %>
       </tbody>
     </table>
   </div>
