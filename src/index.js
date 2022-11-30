@@ -60,7 +60,7 @@ app.post("/updatePlayersTable", (req, res) => {
       .then(async (results) => {
         await db.any("delete from players;");
         results.data.forEach(async (player) => {
-          const insert = `insert into players (name, team, number, position) values ($1,$2,$3,$4);`;
+          const insert = `insert into players (name, team, jersey, position) values ($1,$2,$3,$4);`;
           await db.any(insert, [
             player.name,
             player.team,
@@ -70,6 +70,14 @@ app.post("/updatePlayersTable", (req, res) => {
         });
       });
   });
+});
+
+app.get("/getAllPlayers",async (req,res)=>{
+  const query = "select * from players;";
+  await db.any(query).then((results)=>{
+    //console.log(results); //uncomment to test if /updatePlayersWorked
+    res.send(results);
+});
 });
 
 app.set("view engine", "ejs");
