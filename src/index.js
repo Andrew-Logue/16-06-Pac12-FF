@@ -263,4 +263,37 @@ app.get("/logout", (req, res) => {
 //     });
 // });
 
+app.get("/changeUsername",(req,res)=>{
+  res.render("pages/changeUsername");
+});
+
+app.get("/changePassword",(req,res)=>{
+  res.render("pages/changePassword");
+});
+
+app.post("/updateUsername",(req,res)=>{
+  const update= "update users set username = $1 where username = $2;";
+  db.any(update,[req.body.username,req.session.user.username])
+  .then( (ret)=>{
+    req.session.user = {
+      username: req.body.username,
+    };
+    req.session.save();
+    res.redirect("/my_profile");
+  });
+});
+
+app.post("/updatePassword",async (req,res)=>{
+  const update= "update users set password = $1 where username = $2;";
+  const hash = await bcrypt.hash(req.body.password, 10);
+  db.any(update,[hash,req.session.user.username])
+  .then( (ret)=>{
+    req.session.user = {
+      username: req.body.username,
+    };
+    req.session.save();
+    res.redirect("/my_profile");
+  });
+});
+
 
