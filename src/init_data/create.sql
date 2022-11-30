@@ -26,10 +26,6 @@ CREATE TABLE players(
     jersey smallint,
     position varchar(50)
 );
-DROP TABLE IF EXISTS leagues;
-CREATE TABLE leagues(
-    league_id INTEGER PRIMARY KEY,
-    league_name varchar(50) NOT NULL
-);
+
 
 
