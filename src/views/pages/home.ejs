@@ -140,16 +140,14 @@
       <h4 style="text-align: center">Upcomming Games</h4>
       <table class="table">
         <tbody>
-          <tr>
-            <td>CU Boulder @ LSU</td>
-            <td>11-27-2021</td>
-            <td>6:00</td>
-          </tr>
-          <tr>
-            <td>CU Boulder @ U</td>
-            <td>11-27-2021</td>
-            <td>6:00</td>
-          </tr>
+          <% upcomingGames.forEach((game)=>{ %>
+            <tr>
+              <td><%= game.away_team %></td>
+              <td> @ </td>
+              <td><%= game.home_team %></td>
+              <td><%= game.start_date %></td>
+            </tr>
+          <% }) %>
         </tbody>
       </table>
     </div>
