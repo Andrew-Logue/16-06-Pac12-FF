@@ -98,9 +98,11 @@ app.use(
 app.listen(3000);
 console.log("Server is listening on port 3000");
 
-app.get("/", (req, res) => {
-  res.render("pages/home");
-  //res.redirect("/login"); //this will call the /anotherRoute route in the API
+app.get("/", async (req, res) => {
+  const query = "select * from teams order by team_score desc limit 5;";
+  await db.any(query).then((results)=>{
+    res.render("pages/home", { topTeams: results });
+  })
 });
 
 app.get("/draft", (req, res) => {
@@ -116,8 +118,11 @@ app.get("/draft", (req, res) => {
     });
 });
 
-app.get("/welcome", (req, res) => {
-  res.render("pages/welcome", { username: req.session.user.username });
+app.get("/welcome", async (req, res) => {
+  const query = "select * from teams order by team_score desc limit 5;";
+  await db.any(query).then((results)=>{
+    res.render("pages/welcome", { username: req.session.user.username, topTeams: results });
+  })
 });
 
 app.post("/register", async (req, res) => {
@@ -230,3 +235,5 @@ app.get("/logout", (req, res) => {
 //       return console.log(err);
 //     });
 // });
+
+
