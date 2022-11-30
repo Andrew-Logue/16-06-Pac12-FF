@@ -18,6 +18,12 @@ CREATE TABLE users_teams(
     team_id INTEGER NOT NULL REFERENCES teams (team_id)
 );
 
+DROP TABLE IF EXISTS players_teams;
+CREATE TABLE players_teams(
+    playerID  INTEGER NOT NULL REFERENCES players (playerID),
+    team_id INTEGER NOT NULL REFERENCES teams (team_id)
+);
+
 DROP TABLE IF EXISTS players;
 CREATE TABLE players(
     playerID serial primary key,
