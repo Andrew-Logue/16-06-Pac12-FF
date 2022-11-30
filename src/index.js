@@ -99,10 +99,23 @@ app.listen(3000);
 console.log("Server is listening on port 3000");
 
 app.get("/", async (req, res) => {
-  const query = "select * from teams order by team_score desc limit 5;";
-  await db.any(query).then((results)=>{
-    res.render("pages/home", { topTeams: results });
+  await axios.get('https://api.collegefootballdata.com/games', {
+    params: {
+        'year': '2022',
+        'week': '14',
+        'seasonType': 'regular',
+        'conference': 'Pac'
+    },
+    headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
+    }
+  }).then(async (results1)=>{
+    const query = "select * from teams order by team_score desc limit 5;";
+    await db.any(query).then((results2)=>{
+    res.render("pages/home", { topTeams: results2, upcomingGames: results1.data });
   })
+  });
 });
 
 app.get("/draft", (req, res) => {
@@ -119,10 +132,24 @@ app.get("/draft", (req, res) => {
 });
 
 app.get("/welcome", async (req, res) => {
-  const query = "select * from teams order by team_score desc limit 5;";
-  await db.any(query).then((results)=>{
-    res.render("pages/welcome", { username: req.session.user.username, topTeams: results });
+  await axios.get('https://api.collegefootballdata.com/games', {
+    params: {
+        'year': '2022',
+        'week': '14',
+        'seasonType': 'regular',
+        'conference': 'Pac'
+    },
+    headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer a17B6qjuCrgQQFMcCxVEDheQmnj1RExx4foTdOprk32EwkvfZOHuD4siQ8pUjmB/'
+    }
+  }).then(async (results1)=>{
+    const query = "select * from teams order by team_score desc limit 5;";
+    await db.any(query).then((results2)=>{
+    res.render("pages/welcome", { topTeams: results2, upcomingGames: results1.data, username: req.session.user.username });
   })
+  });
+
 });
 
 app.post("/register", async (req, res) => {
