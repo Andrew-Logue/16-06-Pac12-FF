@@ -8,8 +8,7 @@ CREATE TABLE teams(
     team_id SERIAL PRIMARY KEY,
     team_name VARCHAR(50) NOT NULL,
     weekly_points SMALLINT NOT NULL,
-    team_score SMALLINT NOT NULL,
-    num_leagues serial NOT NULL
+    team_score SMALLINT NOT NULL
 );
 
 DROP TABLE IF EXISTS users_teams;
@@ -25,11 +24,6 @@ CREATE TABLE players(
     team varchar(50) not null,
     jersey smallint,
     position varchar(50)
-);
-DROP TABLE IF EXISTS leagues;
-CREATE TABLE leagues(
-    league_id INTEGER PRIMARY KEY,
-    league_name varchar(50) NOT NULL
 );
 
 
