@@ -8,7 +8,8 @@ CREATE TABLE teams(
     team_id SERIAL PRIMARY KEY,
     team_name VARCHAR(50) NOT NULL,
     weekly_points SMALLINT NOT NULL,
-    team_score SMALLINT NOT NULL
+    team_score SMALLINT NOT NULL,
+    num_leagues serial NOT NULL
 );
 
 DROP TABLE IF EXISTS users_teams;
