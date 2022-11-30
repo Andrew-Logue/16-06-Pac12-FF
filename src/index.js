@@ -119,7 +119,8 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/draft", (req, res) => {
-  const query = "SELECT * FROM players ORDER BY position DESC;";
+  const query = "SELECT * FROM players WHERE position = 'QB' AND position = 'RB' AND position = 'WR' AND position = 'TE' ORDER BY position ASC;";
+
   db.any(query)
     .then((result) => {
       console.log(result);
@@ -127,8 +128,79 @@ app.get("/draft", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.render("pages/draft", { players: [] });
+      res.render("pages/draft", { players: [], message: err.message, });
     });
+});
+
+app.post("/draft/add", (req, res) => {
+  const playerID = parseInt(req.body.playerID);
+  const username = req.session.user.username;
+  const team_id = "SELECT team_ID FROM users_teams WHERE username = $1";
+  db.tx(async (t, [username]) => {
+    
+  const [row] = await t.any(
+    `SELECT
+          COUNT(*)
+        FROM
+          players_teams
+        WHERE
+          team_id = $1`,
+    [team_id]
+  );
+  if (row.count > 7) {
+    throw new Error(`There are too many players on your team! (Maximum of 8)`);
+  }
+
+  await t.none(
+    "INSERT INTO players_teams(playerID, team_id) VALUES ($1, $2);",
+    [playerID, team_id]
+  );
+  })
+
+  .then((result) => {
+    res.render("pages/draft", {
+      players: result,
+      message: `Successfully added player! ${req.body.playerID}`,
+    });
+  })
+  .catch((err) => {
+    res.render("pages/draft", {
+      players: [],
+      message: err.message,
+    });
+  });
+});
+
+app.post("/draft/delete", (req, res) => {
+  const playerID = parseInt(req.body.playerID);
+  const username = req.session.user.username;
+  const team_id = "SELECT team_ID FROM users_teams WHERE username = $1";
+
+  db.task("delete-course", (task) => {
+    return task.batch([
+      task.none(
+        `DELETE FROM
+            players_teams
+          WHERE
+            playerID = $1
+            AND team_id = '$2';`,
+            [playerID, team_id]
+      )
+    ]);
+  })
+
+  .then((result) => {
+    res.render("pages/draft", {
+      players: result,
+      message: `Successfully removed player! ${req.body.playerID}`,
+    });
+  })
+  .catch((err) => {
+    res.render("pages/draft", {
+      players: [],
+      message: err.message,
+    });
+  });
 });
 
 app.get("/welcome", async (req, res) => {

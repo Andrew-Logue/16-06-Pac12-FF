@@ -2,8 +2,15 @@
 
 <main>
     <div class="container">
-
-        <h1>Drafting</h1>
+      <% if (locals.message) { %>
+        <div
+          class="alert alert-<%- locals.error ? 'danger' : 'success' %>"
+          role="alert"
+        >
+          <%= message %>
+        </div>
+        <% } %>
+        <h1>Draft your team!</h1>
 
         <table class="table">
             <tbody>
@@ -14,12 +21,20 @@
               </tr>
               <% players.forEach(player => { %>
               <tr>
-                <td><%=players.player_name%></td>
+                <td><%=players.name%></td>
                 <td><%=player.position%></td>
                 <td>
-                    <form action = '/team/add/' method = 'POST'>
-                        <button type="submit" class="btn btn-primary">Add to Team</button>
+                  <% if(!) { %>
+                    <form action = '/draft/delete/' method = 'POST'>
+                      <button type="submit" class="btn btn-success">Remove from Team</button>
+                      <input type="hidden" name = "playerID" value = "<%= players.playerID %> "></input>
                     </form>
+                  <% } else { %>
+                    <form action = '/draft/add/' method = 'POST'>
+                        <button type="submit" class="btn btn-success">Add to Team</button>
+                        <input type="hidden" name = "playerID" value = "<%= players.playerID %> "></input>
+                    </form>
+                  <% } %>
                 </td>
               </tr>             
               <%});%>
