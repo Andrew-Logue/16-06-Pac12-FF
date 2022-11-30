@@ -5,17 +5,29 @@
       Hello <%=users[0].username%>
     </h1>
   </div>
-  <tr>
-    <h2 style="padding-left: 50px; color: gray">Team Info</h2>
-    <h3 style="padding-left: 50px; font-size: 20px">
-      <%= teams[0].team_name%>
-    </h3>
-    <div style="padding-left: 50px">
-      Weekly Points: <%= teams[0].weekly_points%>
-    </div>
-    <div style="padding-left: 50px">
-      Weekly Points: <%= teams[0].team_score%>
-    </div>
-  </tr>
+    <tr>
+      <h2 style="padding-left: 50px; color: gray">Team Info</h2>
+      <h3 style="padding-left: 50px; font-size: 20px">
+        <%= teams[0].team_name%>
+      </h3>
+      <div style="padding-left: 50px">
+        Weekly Points: <%= teams[0].weekly_points%>
+      </div>
+      <div style="padding-left: 50px">
+        Weekly Points: <%= teams[0].team_score%>
+      </div>
+    </tr>
+  <!-- stuff for changing un and pw-->
+  <div class = "container">
+    <h2 style=" color: gray">Change Profile Information</h2>
+    <table>
+      <tr>
+        <td><a href="changeUsername">Change Username</a></td>
+      </tr>
+      <tr>
+        <td><a href="changePassword">Change Password</a></td>
+      </tr>
+    </table>
+  </div>
 </main>
 <%- include ('../partials/footer') %>
