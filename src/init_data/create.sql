@@ -14,8 +14,8 @@ CREATE TABLE teams(
 
 DROP TABLE IF EXISTS users_teams;
 CREATE TABLE users_teams(
-    username VARCHAR(50) NOT NULL REFERENCES users (username),
-    team_id INTEGER NOT NULL REFERENCES teams (team_id)
+    username VARCHAR(50) NOT NULL,
+    team_id INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS players_teams;
