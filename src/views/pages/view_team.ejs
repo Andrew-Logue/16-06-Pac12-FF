@@ -1,0 +1,29 @@
+<%- include ('../partials/header') %> <%- include ('../partials/loggedInMenu')%>
+<main>
+  <div class="container">
+    <table class="table">
+      <tbody>
+        <div>
+          <tr>
+            <h1 class="pt-3" style="text-align: center">
+              <%=player_team.username%>>
+            </h1>
+          </tr>
+        </div>
+        <div style="padding-top: 50px">
+          <tr></tr>
+          <%i = 0;%><%player_team.forEach(player_team => { %>
+          <tr>
+            <%i = i+1;%>
+            <td><%=i%></td>
+            <td>
+              <a class="nav-link" href="/view_team"> <%=player_team.name%> </a>
+            </td>
+          </tr>
+        </div>
+
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>

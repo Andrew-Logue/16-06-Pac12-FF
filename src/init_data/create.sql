@@ -20,7 +20,8 @@ CREATE TABLE users_teams(
 
 DROP TABLE IF EXISTS players_teams;
 CREATE TABLE players_teams(
-    name varchar(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    name varchar(50) NOT NULL ,
     team_id INTEGER NOT NULL
 );
 

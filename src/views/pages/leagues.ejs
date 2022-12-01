@@ -20,8 +20,14 @@
           <tr>
             <%i = i+1;%>
             <td><%=i%></td>
-            <td><%=user_team.team_name%></td>
-            <td><%=user_team.weekly_points%></td>
+            <td>
+              <a class="nav-link" href="/view_team">
+                <%=user_team.team_name%>
+              </a>
+            </td>
+            <td>
+              <div href="/view_team"><%=user_team.weekly_points%></div>
+            </td>
             <td><%=user_team.team_score%></td>
           </tr>
         </div>
