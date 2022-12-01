@@ -119,8 +119,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/draft", (req, res) => {
-  const query = "SELECT * FROM players WHERE position = 'QB' AND position = 'RB' AND position = 'WR' AND position = 'TE' ORDER BY position ASC;";
-
+  const query = "SELECT * FROM players WHERE position = 'QB' or position = 'RB' or position = 'WR' or position = 'TE' ORDER BY position ASC;";
   db.any(query)
     .then((result) => {
       console.log(result);
