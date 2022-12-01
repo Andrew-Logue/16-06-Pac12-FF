@@ -5,6 +5,14 @@
       Hello <%=users[0].username%>
     </h1>
   </div>
+  <div class="container-fluid">
+    <h2> Create New Team</h2>
+    <form action="/addNewTeam" method="post">
+      <label>Team name:</label>
+      <input type="text" id="teamName" name="teamName">
+      <input type="submit" value="+">
+    </form>
+  </div>
     <tr>
       <h2 style="padding-left: 50px; color: gray">Team Info</h2>
       <h3 style="padding-left: 50px; font-size: 20px">
