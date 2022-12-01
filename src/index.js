@@ -368,4 +368,16 @@ app.post("/updatePassword",async (req,res)=>{
   });
 });
 
+app.post("/addNewTeam",async(req,res)=>{
+const insert = "insert into teams (team_name, weekly_points, team_score, num_leagues) values ($1,0,0,0);";
+await db.any(insert,[req.body.teamName])
+.then(async()=>{
+const query = "select team_id from teams where team_name = $1;";
+await db.any(query,[req.body.teamName])
+.then(async (result)=>{
+  const ins = "insert into users_teams (username,team_id) values ($1,$2);";
+  await db.any(insert,[req.session.user.username,result]);
+  res.redirect("/draft");
+}
 
+)})});
