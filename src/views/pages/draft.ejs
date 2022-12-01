@@ -24,17 +24,10 @@
                 <td><%=players.name%></td>
                 <td><%=player.position%></td>
                 <td>
-                  <% if(!) { %>
-                    <form action = '/draft/delete/' method = 'POST'>
-                      <button type="submit" class="btn btn-success">Remove from Team</button>
+                  <form action = '/draft/add/' method = 'POST'>
+                      <button type="submit" class="btn btn-success">Add to Team</button>
                       <input type="hidden" name = "playerID" value = "<%= players.playerID %> "></input>
-                    </form>
-                  <% } else { %>
-                    <form action = '/draft/add/' method = 'POST'>
-                        <button type="submit" class="btn btn-success">Add to Team</button>
-                        <input type="hidden" name = "playerID" value = "<%= players.playerID %> "></input>
-                    </form>
-                  <% } %>
+                  </form>
                 </td>
               </tr>             
               <%});%>

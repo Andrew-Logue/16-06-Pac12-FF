@@ -6,7 +6,3 @@ INSERT INTO teams (team_name, weekly_points, team_score) VALUES
 ('Matthews Team', 113, 13),
 ('Nathans Team', 114,15)
 ;
-
-INSERT INTO users_teams (username, team_id) VALUES
-('test', '1')
-;

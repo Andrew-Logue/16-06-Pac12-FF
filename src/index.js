@@ -171,37 +171,37 @@ app.post("/draft/add", (req, res) => {
   });
 });
 
-app.post("/draft/delete", (req, res) => {
-  const playerID = parseInt(req.body.playerID);
-  const username = req.session.user.username;
-  const team_id = "SELECT team_ID FROM users_teams WHERE username = $1";
+// app.post("/draft/delete", (req, res) => {
+//   const playerID = parseInt(req.body.playerID);
+//   const username = req.session.user.username;
+//   const team_id = "SELECT team_ID FROM users_teams WHERE username = $1";
 
-  db.task("delete-course", (task) => {
-    return task.batch([
-      task.none(
-        `DELETE FROM
-            players_teams
-          WHERE
-            playerID = $1
-            AND team_id = '$2';`,
-            [playerID, team_id]
-      )
-    ]);
-  })
+//   db.task("delete-course", (task) => {
+//     return task.batch([
+//       task.none(
+//         `DELETE FROM
+//             players_teams
+//           WHERE
+//             playerID = $1
+//             AND team_id = '$2';`,
+//             [playerID, team_id]
+//       )
+//     ]);
+//   })
 
-  .then((result) => {
-    res.render("pages/draft", {
-      players: result,
-      message: `Successfully removed player! ${req.body.playerID}`,
-    });
-  })
-  .catch((err) => {
-    res.render("pages/draft", {
-      players: [],
-      message: err.message,
-    });
-  });
-});
+//   .then((result) => {
+//     res.render("pages/draft", {
+//       players: result,
+//       message: `Successfully removed player! ${req.body.playerID}`,
+//     });
+//   })
+//   .catch((err) => {
+//     res.render("pages/draft", {
+//       players: [],
+//       message: err.message,
+//     });
+//   });
+// });
 
 app.get("/welcome", async (req, res) => {
   await axios.get('https://api.collegefootballdata.com/games', {
