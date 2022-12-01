@@ -133,7 +133,7 @@ app.get("/draft", (req, res) => {
 });
 
 app.post("/draft/add", (req, res) => {
-  const playerID = parseInt(req.body.playerID);
+  const name = parseInt(req.body.name);
   const username = req.session.user.username;
   const team_id = "SELECT team_ID FROM users_teams WHERE username = $1";
   db.tx(async (t, [username]) => {
@@ -152,8 +152,8 @@ app.post("/draft/add", (req, res) => {
   }
 
   await t.none(
-    "INSERT INTO players_teams(playerID, team_id) VALUES ($1, $2);",
-    [playerID, team_id]
+    "INSERT INTO players_teams(name, team_id) VALUES ($1, $2);",
+    [name, team_id]
   );
   })
 
