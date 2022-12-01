@@ -1,15 +1,36 @@
 <%- include ('../partials/header') %> <%- include ('../partials/loggedInMenu') %>
 
 <main>
+  
+  <head>
+    <link rel="stylesheet" href="../resources/css/styles.css">
+    <script src="script.js" defer></script>
+    <title>Drafting</title>
+  </head>
+
     <div class="container">
 
-        <h1>Drafting</h1>
+        
 
+        <div class="col">
+          <h1 style="text-align: center">Draft</h1>
         <table class="table">
+          
+          <thead>
+            <div class="search-wrapper">
+              <label for="search">Search Players</label>
+              <input type="search" id="search" data-search>
+            </div>
+          </thead>
+
             <tbody>
               <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Position</th>
+                <div class="player-cards" data-player-cards-container></div>
+              <template data-user-template>
+                <div class="card">
+                  <div class="header" data-header></div>
+                  <div class="body" data-body></div>
+              </div>
               </tr>
               <% team.forEach(player => { %>
               <tr>
@@ -25,6 +46,8 @@
             </tbody>
           </table>
 
+          <div class="col">
+            <h1 style="text-align: center">"My team"</h1>
           <table class="table">
             <tbody>
               <tr>

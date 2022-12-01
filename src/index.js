@@ -76,9 +76,6 @@ app.get("/", (req, res) => {
   //res.redirect("/login"); //this will call the /anotherRoute route in the API
 });
 
-app.get("/draft",(req,res)=>{
-  res.render("pages/draft");
-})
 
 app.get("/welcome",(req,res)=>{
   res.render("pages/welcome",{username: req.session.user.username});
