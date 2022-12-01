@@ -16,17 +16,19 @@
             <tbody>
               <tr>
                 <th scope="col">Player Name</th>
+                <th scope="col">Player Team</th>
                 <th scope="col">Position</th>
                 <th scope="col"></th>
               </tr>
               <% players.forEach(player => { %>
               <tr>
-                <td><%=players.name%></td>
+                <td><%=player.name%></td>
+                <td><%=player.team%></td>
                 <td><%=player.position%></td>
                 <td>
                   <form action = '/draft/add/' method = 'POST'>
                       <button type="submit" class="btn btn-success">Add to Team</button>
-                      <input type="hidden" name = "playerID" value = "<%= players.name %> "></input>
+                      <input type="hidden" name = "playerID" value = "<%= player.name %> "></input>
                   </form>
                 </td>
               </tr>             
