@@ -4,7 +4,7 @@
     <div class="container">
       <% if (locals.message) { %>
         <div
-          class="alert alert-<%- locals.error ? 'danger' : 'success' %>"
+          class="alert alert-success"
           role="alert"
         >
           <%= message %>
@@ -28,7 +28,7 @@
                 <td>
                   <form action = '/draft/add/' method = 'POST'>
                       <button type="submit" class="btn btn-success">Add to Team</button>
-                      <input type="hidden" name = "playerID" value = "<%= player.name %> "></input>
+                      <input type="hidden" name = "name" value = "<%= player.name %> "></input>
                   </form>
                 </td>
               </tr>             

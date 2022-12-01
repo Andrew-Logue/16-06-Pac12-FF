@@ -133,14 +133,23 @@ app.get("/draft", (req, res) => {
 });
 
 app.post("/draft/add", (req, res) => {
-  const name = parseInt(req.body.name);
+  const name = req.body.name;
   console.log(name)
   const username1 = req.session.user.username;
   console.log(username1)
   const team_id = "SELECT team_id FROM users_teams WHERE username = $1;";
-  console.log(team_id)
-  db.tx(async (t, [username1]) => {
-    
+  db.any(team_id, [username1]) 
+    .then((result) => {
+      console.log(result[0]['team_id'])
+      const insertq = "INSERT INTO players_teams(name, team_id) VALUES ($1, $2);";
+      db.none(insertq, [name, result[0]['team_id']])
+        res.redirect("/draft");
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/draft");
+    });
   // const [row] = await t.any(
   //   `SELECT
   //         COUNT(*)
@@ -154,19 +163,6 @@ app.post("/draft/add", (req, res) => {
   //   throw new Error(`There are too many players on your team! (Maximum of 8)`);
   // }
 
-  await t.none(
-    "INSERT INTO players_teams(name, team_id) VALUES ($1, $2);",
-    [name, team_id]
-  );
-  })
-
-  .then((result) => {
-    res.redirect("/draft", {message: `Successfully added player! ${req.body.name}`});
-  })
-  .catch((err) => {
-    console.log(err);
-    res.redirect("/draft");
-  });
 });
 
 // app.post("/draft/delete", (req, res) => {
@@ -373,8 +369,12 @@ await db.any(insert,[req.body.teamName])
 const query = "select team_id from teams where team_name = $1;";
 await db.any(query,[req.body.teamName])
 .then(async (result)=>{
-  const ins = "insert into users_teams (username,team_id) values ($1,$2);";
-  await db.any(insert,[req.session.user.username,result]);
+  console.log(result); 
+  console.log(result[0]);
+  console.log(result[0]['team_id']);
+  const ins = "insert into users_teams (username, team_id) values ($1,$2);";
+  await db.any(ins, [req.session.user.username, result[0]['team_id']]);
+  //await db.any(ins, [req.session.user.username, result[0].toString().split(':')[1]]);
   res.redirect("/draft");
 }
 
