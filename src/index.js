@@ -128,7 +128,7 @@ app.get("/draft", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.render("pages/draft", { players: [], message: err.message, });
+      res.render("pages/draft", { players: [] });
     });
 });
 
@@ -163,6 +163,28 @@ app.post("/draft/add", (req, res) => {
   //   throw new Error(`There are too many players on your team! (Maximum of 8)`);
   // }
 
+});
+
+app.get("/my_team", (req, res) => {
+  const name2 = req.body.name;
+  console.log(name2)
+  const username2 = req.session.user.username;
+  console.log(username2)
+  const team_id2 = "SELECT team_id FROM users_teams WHERE username = $1;";
+  db.any(team_id2, [username2]) 
+    .then((result) => {
+      const getPlayers = "SELECT name FROM players_teams WHERE team_id = $1;";
+      db.any(getPlayers, [result[0]['team_id']])
+        .then((result2) => {
+          console.log(result2);
+          res.render("pages/my_team", { players: result2 });
+        })
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/my_team", { players: [] });
+    });
 });
 
 // app.post("/draft/delete", (req, res) => {
