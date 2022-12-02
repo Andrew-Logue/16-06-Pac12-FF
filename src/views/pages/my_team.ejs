@@ -11,18 +11,14 @@
         </div>
         <div style="padding-top: 50px">
           <tr>
-            <th>Rank</th>
-            <th>Team Name</th>
-            <th>Weekly Points</th>
-            <th>Total Points</th>
+            <th>Player Rank</th>
+            <th>Player Name</th>
           </tr>
-          <%i = 0;%><%user_teams.forEach(user_team => { %>
+          <%i = 0;%><%players.forEach(player => { %>
           <tr>
             <%i = i+1;%>
             <td><%=i%></td>
-            <td><%=user_team.team_name%></td>
-            <td><%=user_team.weekly_points%></td>
-            <td><%=user_team.team_score%></td>
+            <td><%=player.name%></td>
           </tr>
         </div>
 
